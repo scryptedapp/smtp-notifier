@@ -1,6 +1,6 @@
 {
    "name": "@scrypted/smtp-notifier",
-   "version": "0.0.1",
+   "version": "0.0.2",
    "description": "SMTP Notifier Plugin for Scrypted",
    "license": "Apache",
    "keywords": [

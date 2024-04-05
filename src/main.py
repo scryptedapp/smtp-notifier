@@ -154,6 +154,7 @@ class SMTPNotifier(ScryptedDeviceBase, Settings, Notifier):
         self.initialize()
 
     async def sendNotification(self, title: str, options: NotifierOptions = None, media: str | MediaObject = None, icon: str | scrypted_sdk.MediaObject = None) -> None:
+        self.initialize()
         if not self.client:
             msg = 'SMTP client not initialized.'
             self.print(msg)
@@ -182,7 +183,6 @@ class SMTPNotifier(ScryptedDeviceBase, Settings, Notifier):
             self.print('Email sent successfully.')
         except SMTPException as e:
             self.print(f'Error sending email: {e}')
-
 
 
 class SMTPNotifierProvider(ScryptedDeviceBase, DeviceProvider, DeviceCreator):
