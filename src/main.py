@@ -174,7 +174,7 @@ class SMTPNotifier(ScryptedDeviceBase, Settings, Notifier):
             if isinstance(media, str):
                 media = await scrypted_sdk.mediaManager.createMediaObjectFromUrl(media)
             data = await scrypted_sdk.mediaManager.convertMediaObjectToBuffer(media, 'image/png')
-            image = MIMEImage(data)
+            image = MIMEImage(data, _subtype='png')
             image.add_header('Content-Disposition', "attachment; filename=image.png")
             message.attach(image)
 
