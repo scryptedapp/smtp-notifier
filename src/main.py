@@ -60,8 +60,6 @@ class SMTPNotifier(ScryptedDeviceBase, Settings, Notifier):
         if any([
             not self.server,
             not self.port,
-            not self.username,
-            not self.password,
             not self.from_email,
             not self.to_email
         ]):
@@ -77,7 +75,8 @@ class SMTPNotifier(ScryptedDeviceBase, Settings, Notifier):
                 except SMTPException as e:
                     self.print('SMTP server does not support STARTTLS. SSL not enabled.')
 
-            self.client.login(self.username, self.password)
+            if self.username or self.password:
+                self.client.login(self.username or '', self.password or '')
         except Exception as e:
             self.print(f'Error connecting to SMTP server: {e}')
             self.client = None
@@ -109,12 +108,14 @@ class SMTPNotifier(ScryptedDeviceBase, Settings, Notifier):
                 'title': 'SMTP Username',
                 'key': 'username',
                 'value': self.username,
+                'description': 'Leave blank for an unauthenticated mail server.',
                 'type': 'string'
             },
             {
                 'title': 'SMTP Password',
                 'key': 'password',
                 'value': self.password,
+                'description': 'Leave blank for an unauthenticated mail server.',
                 'type': 'password'
             },
             {
